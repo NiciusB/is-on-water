@@ -1,0 +1,35 @@
+{
+  "name": "is-on-water",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc-watch --noClear --onSuccess \"node --enable-source-maps -r require-esm-deasync ./dist\"",
+    "lint": "tsc --noEmit"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/koa": "^2.13.5",
+    "@types/koa__cors": "^3.3.0",
+    "@types/koa__router": "^12.0.0",
+    "@types/koa-static": "^4.0.2",
+    "@types/node": "^18.11.9",
+    "@types/unzipper": "^0.10.5",
+    "prettier": "^2.7.1",
+    "tsc-watch": "^5.0.3",
+    "typescript": "^4.8.4"
+  },
+  "dependencies": {
+    "@koa/cors": "^4.0.0",
+    "@koa/router": "^12.0.0",
+    "deasync": "^0.1.28",
+    "geotiff": "^2.0.7",
+    "koa": "^2.13.4",
+    "koa-static": "^5.0.0",
+    "require-esm-deasync": "^0.1.0",
+    "unzipper": "^0.10.11"
+  }
+}

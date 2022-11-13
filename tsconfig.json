@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "module": "CommonJS",
+    "noImplicitAny": true,
+    "target": "ES2022",
+    "lib": ["DOM", "ES2021"],
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "outDir": "dist/",
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "strictNullChecks": true
+  },
+  "include": ["src"]
+}
