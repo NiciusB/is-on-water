@@ -86,6 +86,28 @@ test('api/v1/get', async () => {
                 reqMs: expect.any(Number),
             },
         },
+        {
+            lat: 6.56,
+            lon: 0,
+            result: {
+                isWater: true,
+                feature: 'LAKE',
+                lat: 6.56,
+                lon: 0,
+                reqMs: expect.any(Number),
+            },
+        },
+        {
+            lat: 0,
+            lon: -69,
+            result: {
+                isWater: false,
+                feature: 'LAND',
+                lat: 0,
+                lon: -69,
+                reqMs: expect.any(Number),
+            },
+        },
     ]
 
     await Promise.all(

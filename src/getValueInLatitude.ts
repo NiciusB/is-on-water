@@ -17,10 +17,10 @@ export async function getValueInLatitude(
     lon: number
 ): Promise<WATER_VALUE_TYPES> {
     const latStr =
-        (lat > 0 ? 'N' : 'S') +
+        (lat >= 0 ? 'N' : 'S') +
         Math.abs(Math.floor(lat)).toString().padStart(2, '0')
     const lonStr =
-        (lon > 0 ? 'E' : 'W') +
+        (lon >= 0 ? 'E' : 'W') +
         Math.abs(Math.floor(lon)).toString().padStart(3, '0')
 
     const zipFilename = path.join(
