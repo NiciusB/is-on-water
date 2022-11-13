@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
     "moduleResolution": "node",
-    "module": "CommonJS",
+    "module": "es2022",
     "noImplicitAny": true,
-    "target": "ES2022",
+    "target": "es2021",
     "lib": ["DOM", "ES2021"],
     "esModuleInterop": true,
     "experimentalDecorators": true,

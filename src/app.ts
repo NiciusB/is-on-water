@@ -1,39 +1,38 @@
-import { getValueInLatitude } from './getValueInLatitude'
+import { getValueInLatitude } from './getValueInLatitude.js'
 import Koa from 'koa'
 import Router from '@koa/router'
 import cors from '@koa/cors'
 import serve from 'koa-static'
 import path from 'path'
+import {fileURLToPath} from 'url';
 
-async function main() {
-    const app = new Koa()
-    const router = new Router()
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-    router.get('/api/v1/get/:lat/:lon', async (ctx) => {
-        const startTs = Date.now()
+const app = new Koa()
+const router = new Router()
 
-        const lat = parseFloat(ctx.params.lat)
-        const lon = parseFloat(ctx.params.lon)
+router.get('/api/v1/get/:lat/:lon', async (ctx) => {
+    const startTs = Date.now()
 
-        const feature = await getValueInLatitude(lat, lon)
+    const lat = parseFloat(ctx.params.lat)
+    const lon = parseFloat(ctx.params.lon)
 
-        ctx.body = {
-            isWater: feature !== 'LAND',
-            feature,
-            lat,
-            lon,
-            reqMs: Date.now() - startTs,
-        }
-    })
+    const feature = await getValueInLatitude(lat, lon)
 
-    app.use(cors())
-        .use(serve(path.join(__dirname, '..', '/static')))
-        .use(router.routes())
-        .use(router.allowedMethods())
-        .listen(7301)
+    ctx.body = {
+        isWater: feature !== 'LAND',
+        feature,
+        lat,
+        lon,
+        reqMs: Date.now() - startTs,
+    }
+})
 
-    process.send?.('ready')
 
-    console.log('App listening on http://localhost:7301')
-}
-void main()
+app.use(cors())
+    .use(serve(path.join(__dirname, '..', 'static')))
+    .use(router.routes())
+    .use(router.allowedMethods())
+
+export default app

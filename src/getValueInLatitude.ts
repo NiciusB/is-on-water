@@ -1,10 +1,14 @@
 import fs from 'fs'
 import unzipper from 'unzipper'
 import { fromArrayBuffer } from 'geotiff'
-import stream2buffer from './utils/stream2buffer'
-import toArrayBuffer from './utils/toArrayBuffer'
-import checkFileExists from './utils/checkFileExists'
+import stream2buffer from './utils/stream2buffer.js'
+import toArrayBuffer from './utils/toArrayBuffer.js'
+import checkFileExists from './utils/checkFileExists.js'
 import path from 'path'
+import {fileURLToPath} from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export type WATER_VALUE_TYPES = 'LAND' | 'OCEAN' | 'RIVER' | 'LAKE' | 'UNKNOWN'
 
@@ -19,7 +23,12 @@ export async function getValueInLatitude(
         (lon > 0 ? 'E' : 'W') +
         Math.abs(Math.floor(lon)).toString().padStart(3, '0')
 
-    const zipFilename = path.join(__dirname, '..', 'dataset', `ASTWBDV001_${latStr}${lonStr}.zip`)
+    const zipFilename = path.join(
+        __dirname,
+        '..',
+        'dataset',
+        `ASTWBDV001_${latStr}${lonStr}.zip`
+    )
 
     const doesFileExist = await checkFileExists(zipFilename)
 
