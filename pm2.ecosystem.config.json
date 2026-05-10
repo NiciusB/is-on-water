@@ -4,7 +4,8 @@
             "name": "is-on-water",
             "script": "./dist/index.js",
             "wait_ready": true,
-            "kill_timeout": 10000
+            "kill_timeout": 10000,
+            "max_memory_restart": "500M"
         }
     ]
 }

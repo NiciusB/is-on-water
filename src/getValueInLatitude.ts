@@ -5,10 +5,10 @@ import stream2buffer from './utils/stream2buffer.js'
 import toArrayBuffer from './utils/toArrayBuffer.js'
 import checkFileExists from './utils/checkFileExists.js'
 import path from 'path'
-import {fileURLToPath} from 'url';
+import { fileURLToPath } from 'url'
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 export type WATER_VALUE_TYPES = 'LAND' | 'OCEAN' | 'RIVER' | 'LAKE' | 'UNKNOWN'
 
@@ -44,9 +44,11 @@ export async function getValueInLatitude(
             )
         )
 
-    const tiff = await fromArrayBuffer(
-        toArrayBuffer(await stream2buffer(readable))
+    const tiffBuf = await stream2buffer(readable).finally(() =>
+        readable.destroy()
     )
+
+    const tiff = await fromArrayBuffer(toArrayBuffer(tiffBuf))
 
     const image = await tiff.getImage()
 

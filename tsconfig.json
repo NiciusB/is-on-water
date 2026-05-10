@@ -5,6 +5,7 @@
     "noImplicitAny": true,
     "target": "es2021",
     "lib": ["DOM", "ES2021"],
+    "types": ["node"],
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
@@ -13,5 +14,6 @@
     "resolveJsonModule": true,
     "strictNullChecks": true
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["src/**/*.test.ts"]
 }
