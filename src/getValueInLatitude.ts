@@ -4,6 +4,7 @@ import { fromArrayBuffer } from 'geotiff'
 import stream2buffer from './utils/stream2buffer.js'
 import toArrayBuffer from './utils/toArrayBuffer.js'
 import checkFileExists from './utils/checkFileExists.js'
+import { getOrLoadTileImage } from './utils/tileImageCache.js'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
@@ -36,21 +37,26 @@ export async function getValueInLatitude(
         return 'UNKNOWN'
     }
 
-    const readable = fs
-        .createReadStream(zipFilename)
-        .pipe(
-            unzipper.ParseOne(
-                new RegExp(`ASTWBDV001_${latStr}${lonStr}_att\\.tif`)
+    const tileKey = `${latStr}${lonStr}`
+
+    const image = await getOrLoadTileImage(tileKey, async () => {
+        const readable = fs
+            .createReadStream(zipFilename)
+            .pipe(
+                unzipper.ParseOne(
+                    new RegExp(`ASTWBDV001_${latStr}${lonStr}_att\\.tif`)
+                )
             )
+
+        const tiffBuf = await stream2buffer(readable).finally(() =>
+            readable.destroy()
         )
 
-    const tiffBuf = await stream2buffer(readable).finally(() =>
-        readable.destroy()
-    )
+        const tiff = await fromArrayBuffer(toArrayBuffer(tiffBuf))
+        const image = await tiff.getImage()
 
-    const tiff = await fromArrayBuffer(toArrayBuffer(tiffBuf))
-
-    const image = await tiff.getImage()
+        return { image, sizeBytes: tiffBuf.byteLength }
+    })
 
     const bbox = image.getBoundingBox()
     const pixelWidth = image.getWidth()

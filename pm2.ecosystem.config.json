@@ -5,7 +5,7 @@
             "script": "./dist/index.js",
             "wait_ready": true,
             "kill_timeout": 10000,
-            "max_memory_restart": "500M"
+            "max_memory_restart": "750M"
         }
     ]
 }

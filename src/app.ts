@@ -20,6 +20,8 @@ router.get('/api/v1/get/:lat/:lon', async (ctx) => {
 
     const feature = await getValueInLatitude(lat, lon)
 
+    console.log({lat, lon, feature})
+
     ctx.body = {
         isWater: feature !== 'LAND',
         feature,
