@@ -8,7 +8,9 @@ jobs:
     steps:
       - uses: actions/checkout@v6
         with:
-          lfs: true
+          lfs: false
+      - run: |
+          git lfs pull --include="dataset/ASTWBDV001_N30E031.zip,dataset/ASTWBDV001_S11E105.zip,dataset/ASTWBDV001_N46E103.zip"
       - uses: actions/setup-node@v6
         with:
           node-version-file: .nvmrc
