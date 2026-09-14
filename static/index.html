@@ -46,6 +46,10 @@
     <p>It contains data acquired between March 1, 2000, and November 30, 2013</p>
     <p>The dataset's pixel size is 30 meters, therefore the results might be incorrect in shores up to that distance (Ex: classifying a beach as OCEAN)</p>
 
+    <h2 class="mt-4">Rate limits</h2>
+    <p>This is a free API intended for development and small-scale use. Requests are limited to <b>120 requests per minute per IP address</b>. If you're rate limited, you'll get an HTTP <code>429</code> response with a <code>Retry-After</code> header telling you how many seconds to wait. Every response also includes <code>X-RateLimit-Limit</code>, <code>X-RateLimit-Remaining</code>, and <code>X-RateLimit-Reset</code> headers.</p>
+    <p>If you need more requests, this project is open source: clone the <a href="https://github.com/NiciusB/is-on-water" target="_blank" rel="noopener noreferrer">GitHub repo</a> and host your own instance.</p>
+
     <hr>
     <div class="row">
         <div class="col-md-6">

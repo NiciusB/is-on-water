@@ -5,14 +5,19 @@ import cors from '@koa/cors'
 import serve from 'koa-static'
 import path from 'path'
 import {fileURLToPath} from 'url';
+import { rateLimit } from './rateLimit.js'
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = new Koa()
+// Trust X-Forwarded-For from the reverse proxy so rate limiting and ctx.ip
+// reflect the real client, not the proxy.
+app.proxy = true
+
 const router = new Router()
 
-router.get('/api/v1/get/:lat/:lon', async (ctx) => {
+router.get('/api/v1/get/:lat/:lon', rateLimit, async (ctx) => {
     const startTs = Date.now()
 
     const lat = parseFloat(ctx.params.lat)
